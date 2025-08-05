@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will You Be My Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background-color: #ffd6e8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #d63384;
+      margin-bottom: 20px;
+      font-size: 2.2rem;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #dc3545;
+      color: white;
+      position: relative;
+    }
+
+    #cuteMsg {
+      display: none;
+      font-size: 28px;
+      color: #d63384;
+      margin-top: 30px;
+    }
+
+    /* Rabbit GIF */
+    #rabbit {
+      display: none;
+      position: absolute;
+      width: 120px;
+      bottom: 100px;
+      animation: bounce 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Romantic slow falling flowers */
+    .flower {
+      position: fixed;
+      top: -50px;
+      font-size: 28px;
+      animation: fall linear forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
+      50% { opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my Valentine?</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
+
+  <img id="rabbit" src="https://media.tenor.com/zZ5kkReks2AAAAAi/bunny-rabbit.gif" alt="Cute Rabbit">
+
+  <div id="cuteMsg">Love you bbu🌸☺️😘</div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const cuteMsg = document.getElementById("cuteMsg");
+    const rabbit = document.getElementById("rabbit");
+
+    // Move No button randomly and show rabbit
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.floor(Math.random() * (window.innerWidth - 150));
+      const y = Math.floor(Math.random() * (window.innerHeight - 150));
+      noBtn.style.position = "absolute";
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+
+      rabbit.style.display = "block";
+      setTimeout(() => {
+        rabbit.style.display = "none";
+      }, 2000);
+    });
+
+    // Yes button click with romantic slow flowers
+    yesBtn.addEventListener("click", () => {
+      cuteMsg.style.display = "block";
+      for (let i = 0; i < 40; i++) {
+        createFlower();
+      }
+    });
+
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.innerHTML = "🌸";
+      flower.style.left = Math.random() * 100 + "vw";
+      flower.style.animationDuration = Math.random() * 3 + 4 + "s"; // slower fall
+      document.body.appendChild(flower);
+
+      setTimeout(() => {
+        flower.remove();
+      }, 7000);
+    }
+  </script>
+</body>
+</html>
